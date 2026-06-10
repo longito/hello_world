@@ -9,7 +9,7 @@ int main(int argc,char **argv)
 	}
 	else
 	{
-		hello();
+		hello(); //注意参数检查
 	}
 	return 0;
 }
