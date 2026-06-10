@@ -7,6 +7,6 @@ int main(int argc,char **argv)
 		printf("hello world, this is  %s\n",name);
 	}
 	else
-		printf("hello world\n");
+		{printf("hello world\n");}
 	return 0;
 }
