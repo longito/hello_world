@@ -9,7 +9,8 @@ int main(int argc,char **argv)
 	}
 	else
 	{
-		hello(NULL); //注意参数检查
+		//hello(NULL); //注意参数检查
+		PRINT_HELLO_DEFAULT;
 	}
 	return 0;
 }
