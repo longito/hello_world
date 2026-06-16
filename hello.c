@@ -29,3 +29,11 @@ void hello4(char *name)
 	else
 	printf("hello world\n");
 }
+
+void hello5(char *name)
+{
+	if( NULL != name)
+	printf("hello world,this is %s_5\n",name);
+	else
+	printf("hello world\n");
+}
