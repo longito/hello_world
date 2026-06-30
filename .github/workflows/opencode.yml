@@ -35,6 +35,12 @@ jobs:
         with:
           persist-credentials: false
 
+      # GitHub Actions runner 没有默认 git 身份，opencode 创建提交时需要
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
       # ──────────────────────────────────────────────
       # 方案 1（启用）：自动实现 issue 并创建 PR
       # ──────────────────────────────────────────────
