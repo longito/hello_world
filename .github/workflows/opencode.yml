@@ -43,8 +43,10 @@ jobs:
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           model: deepseek/deepseek-chat
+          use_github_token: true
           prompt: |
             你是一名 AI 编码助手。请仔细阅读这个 issue 的内容，理解其中请求的功能或修复需求。
             - 在本地实现 issue 中描述的所有改动
@@ -62,8 +64,10 @@ jobs:
       #   uses: anomalyco/opencode/github@latest
       #   env:
       #     DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   with:
       #     model: deepseek/deepseek-chat
+      #     use_github_token: true
       #     prompt: |
       #       你是一名资深开发者，正在对 issue 进行初步评估。
       #       - 分析 issue 描述的问题或需求，判断是否清晰、可复现
@@ -79,8 +83,10 @@ jobs:
       #   uses: anomalyco/opencode/github@latest
       #   env:
       #     DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #   with:
       #     model: deepseek/deepseek-chat
+      #     use_github_token: true
       #     prompt: |
       #       你是一名项目维护者，负责 issue 分类管理。
       #       - 分析 issue 内容，判断类型：bug / feature / question / docs
@@ -97,5 +103,7 @@ jobs:
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           model: deepseek/deepseek-chat
+          use_github_token: true
