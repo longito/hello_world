@@ -26,16 +26,74 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       id-token: write
-      contents: read
-      pull-requests: read
-      issues: read
+      contents: write
+      pull-requests: write
+      issues: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
         with:
           persist-credentials: false
 
-      - name: Run opencode
+      # ──────────────────────────────────────────────
+      # 方案 1（启用）：自动实现 issue 并创建 PR
+      # ──────────────────────────────────────────────
+      - name: Run opencode on issue
+        if: github.event_name == 'issues'
+        uses: anomalyco/opencode/github@latest
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        with:
+          model: deepseek/deepseek-chat
+          prompt: |
+            你是一名 AI 编码助手。请仔细阅读这个 issue 的内容，理解其中请求的功能或修复需求。
+            - 在本地实现 issue 中描述的所有改动
+            - 创建新的 git 分支，提交改动
+            - 向仓库发起 Pull Request
+            注意：
+            - 如果需求不清晰，在 issue 中评论询问澄清，不要猜测
+            - 确保代码编译通过、风格与现有代码一致
+
+      # ──────────────────────────────────────────────
+      # 方案 2（注释）：回复引导，不改代码
+      # ──────────────────────────────────────────────
+      # - name: Run opencode on issue
+      #   if: github.event_name == 'issues'
+      #   uses: anomalyco/opencode/github@latest
+      #   env:
+      #     DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      #   with:
+      #     model: deepseek/deepseek-chat
+      #     prompt: |
+      #       你是一名资深开发者，正在对 issue 进行初步评估。
+      #       - 分析 issue 描述的问题或需求，判断是否清晰、可复现
+      #       - 在 issue 中回复，提供相关文档链接、代码示例或排查思路
+      #       - 如果问题明确且有标准解决方案，给出具体步骤
+      #       - 不做任何代码改动，不创建 PR
+
+      # ──────────────────────────────────────────────
+      # 方案 3（注释）：归类打标签
+      # ──────────────────────────────────────────────
+      # - name: Run opencode on issue
+      #   if: github.event_name == 'issues'
+      #   uses: anomalyco/opencode/github@latest
+      #   env:
+      #     DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+      #   with:
+      #     model: deepseek/deepseek-chat
+      #     prompt: |
+      #       你是一名项目维护者，负责 issue 分类管理。
+      #       - 分析 issue 内容，判断类型：bug / feature / question / docs
+      #       - 在 issue 中添加合适的 label（如 bug、enhancement、question）
+      #       - 评估优先级（high / medium / low）并评论说明理由
+      #       - 如果是重复 issue，引用原 issue 并建议关闭
+      #       - 不做代码改动，不创建 PR
+
+      # ──────────────────────────────────────────────
+      # 评论事件（保持原有行为，由 comment body 提取指令）
+      # ──────────────────────────────────────────────
+      - name: Run opencode on comment
+        if: github.event_name != 'issues'
         uses: anomalyco/opencode/github@latest
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
