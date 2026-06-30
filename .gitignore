@@ -1,0 +1,11 @@
+# oh-my-openagent internal files
+.omo/
+
+# Compiled binary
+hello
+
+# Object files
+*.o
+
+# Node.js
+node_modules/
