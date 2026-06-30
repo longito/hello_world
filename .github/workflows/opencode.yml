@@ -32,8 +32,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
-        with:
-          persist-credentials: false
 
       # GitHub Actions runner 没有默认 git 身份，opencode 创建提交时需要
       - name: Configure git identity
