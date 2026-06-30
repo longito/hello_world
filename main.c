@@ -5,7 +5,7 @@ int main(int argc,char **argv)
 	if(argc >= 2 && argv[1] != NULL)
 	{
 		char *name = argv[1];
-		hello(name);
+		hello6(name);
 	}
 	else
 	{

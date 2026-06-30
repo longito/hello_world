@@ -1,3 +1,4 @@
+#include <stdio.h>
 void hello(char *name)
 {
 	if( NULL != name)
@@ -34,6 +35,14 @@ void hello5(char *name)
 {
 	if( NULL != name)
 	printf("hello world,this is %s_5\n",name);
+	else
+	printf("hello world\n");
+}
+
+void hello6(char *name)
+{
+	if( NULL != name)
+	printf("hello world,this is %s_6\n",name);
 	else
 	printf("hello world\n");
 }
